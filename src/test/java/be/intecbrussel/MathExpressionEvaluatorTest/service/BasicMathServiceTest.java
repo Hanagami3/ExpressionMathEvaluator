@@ -134,12 +134,16 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
         public static Stream<Arguments> basicModuloFactory() {
             return Stream.of(
                     Arguments.of(3, 2, 1),
-                    Arguments.of(100, -3, 1),
-                    Arguments.of(-7, -3, 1)
-
-
-
-
+                    Arguments.of(100, -3, 1),//?
+                    Arguments.of(-7, -3, -1),//?
+                    Arguments.of(10, 15, 10),
+                    Arguments.of(0, 0, 0),
+                    Arguments.of(0, 5, 0),
+                    Arguments.of(5_000_000_000L, 2_000_000_000, 1_000_000_000),
+                    Arguments.of(0.25, 0.5, 0.25),
+                    Arguments.of(0.5, 0.25, 0),
+                    Arguments.of(0.00001, 0.00002, 0.00001)
+                    //Arguments.of(0.999991, 0.000001, ??)
             );
         }
     }

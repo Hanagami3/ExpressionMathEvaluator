@@ -43,9 +43,8 @@ public class BasicMathServiceImpl implements BasicMathService{
         BigDecimal firstDecimal = DecimalGetter.getBigDecimal(dividend);
         BigDecimal secondDecimal =  DecimalGetter.getBigDecimal(divider);
 
-        BigDecimal result = firstDecimal.subtract(secondDecimal);
+        BigDecimal result = new BigDecimal(0);
 
-        //result = firstDecimal.divide(secondDecimal);
         try {
             result = firstDecimal.divide(secondDecimal);
         } catch (ArithmeticException ae){
@@ -64,8 +63,13 @@ public class BasicMathServiceImpl implements BasicMathService{
         BigDecimal firstDecimal = DecimalGetter.getBigDecimal(firstNumber);
         BigDecimal secondDecimal =  DecimalGetter.getBigDecimal(secondNumber);
 
-        BigDecimal result = firstDecimal.remainder(secondDecimal);
+        BigDecimal result = new BigDecimal(0);
 
+        try {
+            result = firstDecimal.remainder(secondDecimal);
+        }catch (ArithmeticException ea){
+            if (secondNumber == 0) System.out.println("Een getal kan niet met 0 delen");
+        }
         return result.doubleValue();
     }
 }
