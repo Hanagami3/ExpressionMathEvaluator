@@ -3,6 +3,7 @@ package be.intecbrussel.MathExpressionEvaluatorTest.Service;
 import be.intecbrussel.MathExpressionEvaluatorTest.Utils.DecimalGetter;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class BasicMathServiceImpl implements BasicMathService{
     @Override
@@ -50,10 +51,19 @@ public class BasicMathServiceImpl implements BasicMathService{
         } catch (ArithmeticException ae){
             if (divider == 0) System.out.println("Een getal kan niet met 0 delen");
             else{
-                System.out.println("Het resultaat mag niet optimaal zijn! (Veel cijfer achter de komma");
+                System.out.println("Het resultaat mag niet optimaal zijn! (Veel cijfer achter de komma)");
                 return dividend/divider;
             }
         }
+
+        return result.doubleValue();
+    }
+    @Override
+    public double divide2(double dividend, double divider){
+        BigDecimal firstDecimal = DecimalGetter.getBigDecimal(dividend);
+        BigDecimal secondDecimal =  DecimalGetter.getBigDecimal(divider);
+
+        BigDecimal result = firstDecimal.divide(secondDecimal, 10, RoundingMode.HALF_UP);
 
         return result.doubleValue();
     }
@@ -68,9 +78,14 @@ public class BasicMathServiceImpl implements BasicMathService{
         try {
             result = firstDecimal.remainder(secondDecimal);
         }catch (ArithmeticException ea){
-            if (secondNumber == 0) System.out.println("Een getal kan niet met 0 delen");
+            if (secondNumber == 0) System.out.println("De modulo kan niet '0' zijn!");
         }
         return result.doubleValue();
+    }
+
+    private BigDecimal convertDoubleToBigDecimal(double number){
+        String numberAsString = String.valueOf(number);
+        return new BigDecimal(numberAsString);
     }
 }
 

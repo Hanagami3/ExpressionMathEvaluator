@@ -6,7 +6,6 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
     import org.junit.jupiter.params.ParameterizedTest;
     import org.junit.jupiter.params.provider.Arguments;
     import org.junit.jupiter.params.provider.MethodSource;
-    import org.junit.jupiter.params.provider.ValueSource;
 
     import java.util.stream.Stream;
 
@@ -51,7 +50,7 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
 
         @ParameterizedTest
         //@ValueSource(longs = {1,1,2,2,2,4}) // exemple pour savoir si pair ou non
-        @MethodSource("basicAdditionFactory") // où dois je trouver les paramètres avec le nom de la méthodes qui les contient
+        @MethodSource("basicAdditionFactory") // où je peux trouver les paramètres
         public void testBasicAdditions(double number1, double number2, double expectedValue){
             double result = basicMathService.add(number1, number2);
             Assertions.assertEquals(expectedValue, result);
@@ -71,17 +70,19 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
             );
         }
         @ParameterizedTest
-        @MethodSource("basicSubtractFactory")
-        public void testBasicSubtract(double number1, double number2, double expectedValue){
+        @MethodSource("basicSubtractionFactory")
+        public void testBasicSubtraction(double number1, double number2, double expectedValue){
             double result = basicMathService.subtract(number1, number2);
             Assertions.assertEquals(expectedValue, result);
         }
-        public static Stream<Arguments> basicSubtractFactory(){
+        public static Stream<Arguments> basicSubtractionFactory(){
             return Stream.of(
                     Arguments.of(5, 3, 2),
                     Arguments.of(-7, -3, -4),
                     Arguments.of(5000000000L, 2000000000, 3000000000L),
                     Arguments.of(0, 0, 0),
+                    Arguments.of(5, 0, 5),
+                    Arguments.of(0, 3, -3),
                     Arguments.of(4.5, 2.5, 2),
                     Arguments.of(-0.00001, 0.00002, -0.00003),
                     Arguments.of(0.999991, 0.000001, 0.99999)
@@ -101,6 +102,7 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
                     Arguments.of(5000000000L, 2000000000, 10000000000000000000D),
                     Arguments.of(0, 0, 0),
                     Arguments.of(5, 0, 0),
+                    Arguments.of(0, 2, 0),
                     Arguments.of(2.5, 4.5, 11.25),
                     Arguments.of(-0.00001, 0.00002, -0.0000000002),
                     Arguments.of(0.999991, 0.000006, 0.000005999946)
@@ -108,18 +110,18 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
         }
 
         @ParameterizedTest
-        @MethodSource("basicDivideFactory")
-        public void testDivideMultiply(double number1, double number2, double expectedValue){
-            double result = basicMathService.divide(number1, number2);
+        @MethodSource("basicDivisionFactory")
+        public void testBasicDivision(double number1, double number2, double expectedValue){
+            double result = basicMathService.divide2(number1, number2);
             Assertions.assertEquals(expectedValue, result);
         }
-        public static Stream<Arguments> basicDivideFactory() {
+        public static Stream<Arguments> basicDivisionFactory() {
             return Stream.of(
                     Arguments.of(15, 3, 5),
-                    Arguments.of(100, 3, 33.333333333333336), //beter oplossing vinden
-                    Arguments.of(-7,3, -2.3333333333333335), //beter oplossing vinden
+                    Arguments.of(100, 3, 33.3333333333), //beter oplossing vinden
+                    Arguments.of(-7,3, -2.3333333333), //beter oplossing vinden
                     Arguments.of(5000000000L, 2000000000, 2.5),
-                    Arguments.of(0, 0, 0),
+                    //Arguments.of(0, 0, 0),
                     Arguments.of(-0.00001, 0.00002, -0.5),
                     Arguments.of(0.999991, 0.000001, 999991)
             );
@@ -127,7 +129,7 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
 
         @ParameterizedTest
         @MethodSource("basicModuloFactory")
-        public void testModuloMultiply(double number1, double number2, double expectedValue){
+        public void testBasicModulo(double number1, double number2, double expectedValue){
             double result = basicMathService.modulo(number1, number2);
             Assertions.assertEquals(expectedValue, result);
         }
@@ -146,4 +148,30 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
                     //Arguments.of(0.999991, 0.000001, ??)
             );
         }
+
+        @ParameterizedTest
+        @MethodSource("basicDivisionExceptionFactory")
+        public void testBasicExceptionDivision(double number1, double number2, Class<Exception> expectedException) {
+            Assertions.assertThrows(expectedException,
+                    () -> basicMathService.divide2(number1, number2));
+            /*
+            try {
+                basicMathService.divide2(number1, number2);
+                Assertions.fail();
+            }catch (ArithmeticException e){
+                return;
+            }catch (Exception e){
+                Assertions.fail();
+            }                           ==> pas recommandé dans le test lui-même.
+            */
+
+        }
+
+        public static Stream<Arguments> basicDivisionExceptionFactory(){
+            return Stream.of(
+                    Arguments.of(0,0, ArithmeticException.class),
+                    Arguments.of(5,0, ArithmeticException.class),
+                    Arguments.of(-5,0, ArithmeticException.class)
+            );
+    }
     }

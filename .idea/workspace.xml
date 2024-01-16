@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7acb4902-f4ce-4611-ba27-ea1f61d4a96b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Utils/DecimalGetter.java" afterDir="false" />
+    <list default="true" id="7acb4902-f4ce-4611-ba27-ea1f61d4a96b" name="Changes" comment="15/01">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/MathApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/MathApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Service/BasicMathService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Service/BasicMathService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Service/BasicMathServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Service/BasicMathServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/be/intecbrussel/MathExpressionEvaluatorTest/service/BasicMathServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/be/intecbrussel/MathExpressionEvaluatorTest/service/BasicMathServiceTest.java" afterDir="false" />
     </list>
@@ -54,7 +54,7 @@
       <recent name="C:\Users\intec\IdeaProjects\MathExpressionEvaluatorTest\src\main\java" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BasicMathServiceTest.testDivideMultiply">
+  <component name="RunManager" selected="Application.MathApp">
     <configuration name="MathApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.MathApp" />
       <module name="MathExpressionEvaluatorTest" />
@@ -83,7 +83,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BasicMathServiceTest.testBasicAdditions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BasicMathServiceTest.testBasicDivision" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MathExpressionEvaluatorTest" />
       <extension name="coverage">
         <pattern>
@@ -93,13 +93,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.service" />
       <option name="MAIN_CLASS_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.service.BasicMathServiceTest" />
-      <option name="METHOD_NAME" value="testBasicAdditions(double,double,double)" />
+      <option name="METHOD_NAME" value="testBasicDivision(double,double,double)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BasicMathServiceTest.testBasicSubtract" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BasicMathServiceTest.testBasicExceptionDivision" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MathExpressionEvaluatorTest" />
       <extension name="coverage">
         <pattern>
@@ -109,13 +109,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.service" />
       <option name="MAIN_CLASS_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.service.BasicMathServiceTest" />
-      <option name="METHOD_NAME" value="testBasicSubtract(double,double,double)" />
+      <option name="METHOD_NAME" value="testBasicExceptionDivision(double,double,java.lang.Class)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BasicMathServiceTest.testDivideMultiply" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BasicMathServiceTest.testBasicSubtraction" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MathExpressionEvaluatorTest" />
       <extension name="coverage">
         <pattern>
@@ -125,7 +125,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.service" />
       <option name="MAIN_CLASS_NAME" value="be.intecbrussel.MathExpressionEvaluatorTest.service.BasicMathServiceTest" />
-      <option name="METHOD_NAME" value="testDivideMultiply(double,double,double)" />
+      <option name="METHOD_NAME" value="testBasicSubtraction(double,double,double)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -133,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BasicMathServiceTest.testDivideMultiply" />
         <item itemvalue="Application.MathApp" />
+        <item itemvalue="JUnit.BasicMathServiceTest.testBasicExceptionDivision" />
         <item itemvalue="JUnit.BasicMathServiceTest" />
-        <item itemvalue="JUnit.BasicMathServiceTest.testBasicSubtract" />
-        <item itemvalue="JUnit.BasicMathServiceTest.testBasicAdditions" />
+        <item itemvalue="JUnit.BasicMathServiceTest.testBasicDivision" />
+        <item itemvalue="JUnit.BasicMathServiceTest.testBasicSubtraction" />
       </list>
     </recent_temporary>
   </component>
@@ -150,6 +150,14 @@
       <option name="presentableId" value="Default" />
       <updated>1705306103514</updated>
     </task>
+    <task id="LOCAL-00001" summary="15/01">
+      <created>1705329401420</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1705329401420</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,5 +170,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="15/01" />
+    <option name="LAST_COMMIT_MESSAGE" value="15/01" />
   </component>
 </project>
