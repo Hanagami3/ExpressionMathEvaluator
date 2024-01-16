@@ -78,6 +78,8 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
         public static Stream<Arguments> basicSubtractionFactory(){
             return Stream.of(
                     Arguments.of(5, 3, 2),
+                    Arguments.of(50, 3, 47),
+                    Arguments.of(-5, 3, -8),
                     Arguments.of(-7, -3, -4),
                     Arguments.of(5000000000L, 2000000000, 3000000000L),
                     Arguments.of(0, 0, 0),
@@ -85,7 +87,9 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
                     Arguments.of(0, 3, -3),
                     Arguments.of(4.5, 2.5, 2),
                     Arguments.of(-0.00001, 0.00002, -0.00003),
-                    Arguments.of(0.999991, 0.000001, 0.99999)
+                    Arguments.of(0.999991, 0.000001, 0.99999),
+                    Arguments.of(0.99999, 0.000001, 0.999989),
+                    Arguments.of(-0.99999, 0.00001, -1)
             );
         }
 
@@ -99,7 +103,10 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
             return Stream.of(
                     Arguments.of(5, 3, 15),
                     Arguments.of(-7, -3, 21),
+                    Arguments.of(-5, 3, -15),
+                    Arguments.of(5, -3, -15),
                     Arguments.of(5000000000L, 2000000000, 10000000000000000000D),
+                    Arguments.of(2000000000, 2000000000, 4000000000000000000L),
                     Arguments.of(0, 0, 0),
                     Arguments.of(5, 0, 0),
                     Arguments.of(0, 2, 0),
@@ -118,15 +125,33 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
         public static Stream<Arguments> basicDivisionFactory() {
             return Stream.of(
                     Arguments.of(15, 3, 5),
+                    Arguments.of(-5, 5, -1),
+                    Arguments.of(0, 5, 0),
+                    Arguments.of(6, -3, -2),
                     Arguments.of(100, 3, 33.3333333333), //beter oplossing vinden
                     Arguments.of(-7,3, -2.3333333333), //beter oplossing vinden
                     Arguments.of(5000000000L, 2000000000, 2.5),
                     //Arguments.of(0, 0, 0),
                     Arguments.of(-0.00001, 0.00002, -0.5),
-                    Arguments.of(0.999991, 0.000001, 999991)
+                    Arguments.of(0.999991, 0.000001, 999991),
+                    Arguments.of(5.5, 4.5, 1.2222222222),
+                    Arguments.of(2000000000, 2000000000, 1)
             );
         }
+        @ParameterizedTest
+        @MethodSource("basicDivisionExceptionFactory")
+        public void testBasicExceptionDivision(double number1, double number2, Class<Exception> expectedException) {
+            Assertions.assertThrows(expectedException,
+                    () -> basicMathService.divide2(number1, number2));
+        }
 
+        public static Stream<Arguments> basicDivisionExceptionFactory() {
+            return Stream.of(
+                    Arguments.of(0, 0, ArithmeticException.class),
+                    Arguments.of(5, 0, ArithmeticException.class),
+                    Arguments.of(-5, 0, ArithmeticException.class)
+            );
+        }
         @ParameterizedTest
         @MethodSource("basicModuloFactory")
         public void testBasicModulo(double number1, double number2, double expectedValue){
@@ -148,12 +173,22 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
                     //Arguments.of(0.999991, 0.000001, ??)
             );
         }
-
-        @ParameterizedTest
-        @MethodSource("basicDivisionExceptionFactory")
-        public void testBasicExceptionDivision(double number1, double number2, Class<Exception> expectedException) {
+        /*@ParameterizedTest
+        @MethodSource("basicModuloExceptionFactory")
+        public void testBasicExceptionModulo(double number1, double number2, Class<Exception> expectedException) {
             Assertions.assertThrows(expectedException,
                     () -> basicMathService.divide2(number1, number2));
+        }
+
+        public static Stream<Arguments> basicModuloExceptionFactory(){
+        return Stream.of(
+                Arguments.of(0,0, IllegalAccessException.class),
+                Arguments.of(5,0, ArithmeticException.class),
+                Arguments.of(-5,0, ArithmeticException.class)
+        );*/
+
+
+
             /*
             try {
                 basicMathService.divide2(number1, number2);
@@ -165,13 +200,8 @@ package be.intecbrussel.MathExpressionEvaluatorTest.service;
             }                           ==> pas recommandé dans le test lui-même.
             */
 
-        }
+    }
 
-        public static Stream<Arguments> basicDivisionExceptionFactory(){
-            return Stream.of(
-                    Arguments.of(0,0, ArithmeticException.class),
-                    Arguments.of(5,0, ArithmeticException.class),
-                    Arguments.of(-5,0, ArithmeticException.class)
-            );
-    }
-    }
+
+
+
