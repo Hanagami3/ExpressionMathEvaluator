@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7acb4902-f4ce-4611-ba27-ea1f61d4a96b" name="Changes" comment="16/01">
-      <change afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/model/DoubleWithIndex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Service/MathExpressionServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/be/intecbrussel/MathExpressionEvaluatorTest/Service/MathExpressionServiceImpl.java" afterDir="false" />
     </list>

@@ -19,7 +19,7 @@ public class MathExpressionServiceImpl implements MathExpressionService{
     @Override
     //public String evaluate(final String expression) {
     public String evaluate(String expression) {
-        if (isInvalidExpression()) {
+        if (isInvalidExpression(expression)) {
             throw new InvalideExpressionException("Invalid Expression");
         }
 
@@ -37,8 +37,10 @@ public class MathExpressionServiceImpl implements MathExpressionService{
         long amountOfCloseBrackets = Stream.of(expression.split(""))
                 .filter(character -> character.equals(")"))
                 .count();
-        if (amountOfCloseBrackets != amountOfOpenBrackets)
-
+        if (amountOfCloseBrackets != amountOfOpenBrackets){
+            return true;
+        }
+        return false;
     }
 
     private String evaluateAddAndSubtract(String expression) {
@@ -48,17 +50,15 @@ public class MathExpressionServiceImpl implements MathExpressionService{
             char operator = expression.charAt(index);
 
             DoubleWithIndex firstNumberAndIndex = findFirstNumberAndIndex(expression, index);
-            DoubleWithIndex secondNumberAndIndex = findSecondeNumberAndIndex(expression, index);
-            int firstNumberIndex = findFirstNumberIndex(expression, index);
-            int secondNumberIndex = findSecondeNumberIndex(expression, index);
+            DoubleWithIndex secondNumberAndIndex = findSecondNumberAndIndex(expression, index);
             double result = 0;
 
             switch (operator){
                 case '*':
-                    result = basicMathService.add(firstNumber, secondNumber);
+                    result = basicMathService.add(firstNumberAndIndex.value, secondNumberAndIndex.index);
                     break;
                 case '/':
-                    result = basicMathService.subtract(firstNumber, secondNumber);
+                    result = basicMathService.subtract(firstNumberAndIndex.value, secondNumberAndIndex.index);
                     break;
             }
 
@@ -111,20 +111,18 @@ public class MathExpressionServiceImpl implements MathExpressionService{
             //double secondNumber = findSecondNumber(expression, index);
 
             DoubleWithIndex firstNumberAndIndex = findFirstNumberAndIndex(expression, index);
-            DoubleWithIndex secondNumberAndIndex = findSecondeNumberAndIndex(expression, index);
-            int firstNumberIndex = findFirstNumberIndex(expression, index);
-            int secondNumberIndex = findSecondeNumberIndex(expression, index);
+            DoubleWithIndex secondNumberAndIndex = findSecondNumberAndIndex(expression, index);
             double result = 0;
 
             switch (operator){
                 case '*':
-                    result = basicMathService.multiply(firstNumber, secondNumber);
+                    result = basicMathService.multiply(firstNumberAndIndex.value,secondNumberAndIndex.value);
                     break;
                 case '/':
-                    result = basicMathService.divide2(firstNumber, secondNumber);
+                    result = basicMathService.divide2(firstNumberAndIndex.value,secondNumberAndIndex.value);
                     break;
                 case '%':
-                    result = basicMathService.modulo(firstNumber, secondNumber);
+                    result = basicMathService.modulo(firstNumberAndIndex.value,secondNumberAndIndex.value);
                     break;
             }
 
@@ -149,8 +147,14 @@ public class MathExpressionServiceImpl implements MathExpressionService{
         return numberIndex;
     }
 
-    private int findSecondNumberAndIndex(String expression, ){
+    private DoubleWithIndex findSecondNumberAndIndex(String expression, int index){
 
+        int firstNumberIndex = findFirstIndexOfAny(expression, index);
+        if (firstNumberIndex < 0) {
+            return new DoubleWithIndex(0, -1);
+        }
+
+        return new DoubleWithIndex(Double.parseDouble(expression.substring(firstNumberIndex, index)), firstNumberIndex);
     }
 
     private DoubleWithIndex findFirstNumberAndIndex (String expression, int index){
@@ -166,8 +170,10 @@ public class MathExpressionServiceImpl implements MathExpressionService{
          */
 
         int firstNumberIndex = getLastIndexOfAny(expression,index);
-        if ((firstNumberIndex ))
+        if (firstNumberIndex < 0)
+            return new DoubleWithIndex(0, -1);
 
+        return new DoubleWithIndex(Double.parseDouble(expression.substring(firstNumberIndex, index)), firstNumberIndex);
     }
 
     private int getLastIndexOfAny(String expression, int endIndex){
